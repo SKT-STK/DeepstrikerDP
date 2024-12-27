@@ -1,0 +1,93 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.minecraft.efficiency"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:levels_squared",
+          "added": 1.0
+        },
+        "attribute": "minecraft:mining_efficiency",
+        "id": "minecraft:enchantment.efficiency",
+        "operation": "add_value"
+      }
+    ],
+    "minecraft:hit_block": [
+      {
+        "requirements": [
+          {
+            "condition": "all_of",
+            "terms": [
+              {
+                "condition": "block_state_property",
+                "block": "minecraft:deepslate"
+              },
+              {
+                "condition": "entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "effects": {
+                    "haste": {
+                      "amplifier": 1
+                    }
+                  },
+                  "equipment": {
+                    "mainhand": {
+                      "items": "minecraft:netherite_pickaxe"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "effect": {
+          "type": "all_of",
+          "effects": [
+            {
+              "type": "change_item_damage",
+              "amount": 1
+            },
+            {
+              "type": "replace_block",
+              "block_state": {
+                "type": "minecraft:simple_state_provider",
+                "state": {
+                  "Name": "minecraft:air"
+                }
+              },
+              "trigger_game_event": "block_destroy"
+            },
+            {
+              "type": "run_function",
+              "function": "dsdp:mine"
+            },
+            {
+              "type": "play_sound",
+              "sound": "minecraft:block.deepslate.break",
+              "volume": 1,
+              "pitch": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 51,
+    "per_level_above_first": 10
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/mining",
+  "weight": 10
+}
